@@ -3,7 +3,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return render_template('view/html/frontend.html')
+    return render_template('')
     
 if __name__ == '__main__':
     app.run(debug=True)
