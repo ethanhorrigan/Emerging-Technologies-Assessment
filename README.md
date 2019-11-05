@@ -3,9 +3,8 @@ Train a model that recognises hand-written digits using the MNIST dataset and Py
 
 ## Built With
 
-* [test](link here) - test
-* [Maven](link here) - test
-* [ROME](link here) - test
+* [Jupyter](https://jupyter.org/) - Jupyter Notebook
+* [Python](https://www.python.org/) - Python 
 
 ## Authors
 
