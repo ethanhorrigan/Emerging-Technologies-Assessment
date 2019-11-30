@@ -1,0 +1,74 @@
+  
+<!DOCTYPE HTML>
+<html>
+  <head>
+      <title>Canvas</title>
+      <!-- https://flask.palletsprojects.com/en/1.1.x/tutorial/static/ -->
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+  </head>
+  <body>
+    <style>
+    </style>
+
+    <canvas id="myCanvas"width="560" height="560" style="border:1px solid #000000;"></canvas>
+    <br>
+    <button class="button" id="Predict" onclick="Predict()">Predict</button>
+    <button class="button" id="Clear" onclick="ClearCanvas()">Clear</button>
+    <h3 id="prediction"></h3>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script>
+      var canvas = document.getElementById('myCanvas');
+      var ctx = canvas.getContext('2d');
+      var mouse = {x: 0, y: 0};
+      
+      canvas.addEventListener('mousemove', function(e) {
+        mouse.x = e.pageX - this.offsetLeft;
+        mouse.y = e.pageY - this.offsetTop;
+      }, false);
+      
+      ctx.lineWidth = 20;
+      ctx.lineJoin = 'miter';
+      ctx.lineCap = 'miter';
+      ctx.strokeStyle = '#ff0000';
+      
+      canvas.addEventListener('mousedown', function(e) {
+          ctx.beginPath();
+          ctx.moveTo(mouse.x, mouse.y);
+      
+          canvas.addEventListener('mousemove', onPaint, false);
+      }, false);
+      
+      canvas.addEventListener('mouseup', function() {
+          canvas.removeEventListener('mousemove', onPaint, false);
+      }, false);
+      
+      var onPaint = function() {
+          ctx.lineTo(mouse.x, mouse.y);
+          ctx.stroke();
+      };
+      // Sends the image to the flask server.
+      function Predict() {
+        var datastring = document.getElementById('myCanvas').toDataURL("image/png");
+        // Let's create and AJAX call to our FlaskServer script.
+        $.ajax({    // Let's send the base 64 image as a JSON file.
+            url: '/predict', // Call the predict method.
+            method: 'POST', // This is a post request.
+            data: {
+            imageBase64: datastring
+            }, // The data we are sending.
+            success: function(res){ // If we have a successful request.              
+              document.getElementById("prediction").innerHTML = res;
+            },error: function(err){ // If we get an error.    
+              document.getElementById("prediction").innerHTML = "Encountered an error.";
+            }
+        });
+      }
+      // Clears the canvas.
+      var ClearCanvas = function() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+      };
+    </script>
+  </body>
+</html>     
