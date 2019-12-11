@@ -1,15 +1,16 @@
+# Author: Ethan Horrigan
+# Description: This program runs the flask app to allow for hand written digits to be saved as images and
+# predicited using the previous trained model
+
 from flask import Flask, escape, request, render_template
 import keras as kr
 import numpy as np
 import re
 import tensorflow as tf
-# base 64: Decoding the image
 import base64
 from keras.models import load_model
-#To clear the session
 from keras import backend as K
 import imageio
-# python -m pip install --user opencv-contrib-python
 import cv2
 from PIL import Image
 from io import BytesIO
@@ -31,28 +32,34 @@ def canvas():
 
 @app.route('/predict' , methods=['POST'])
 def predict():
+    # Getting the Image64 from from the image post
     imageB64 = request.values.get("imageBase64", "")
-
-    decode = base64.b64decode(imageB64[22:])
-    print(decode)
     
+    # Decode the Image
+    decode = base64.b64decode(imageB64[22:])
+    
+    # Open the Original Image
     with open("image.png", "wb") as f:
         f.write(decode)
     
-    # Defining the width and height of the image resize
+    # Defining the width and height for the image resize
     width = 28
     height = 28
     # Dimensions = Width x Height
     dim = (width, height)
     
+    # Open the Image
     img = Image.open("image.png")
     # img = Image.open("image.png").convert('L')
     # Save the Original Image (For Comparison)
+
+    # Save the Original Image
     img.save("OriginalImage.png")
 
     # Downsize the Image to 28 x 28
     # https://stackoverflow.com/questions/273946/how-do-i-resize-an-image-using-pil-and-maintain-its-aspect-ratio
     img = img.resize(dim, Image.ANTIALIAS)
+    # Save the Resized Image
     img.save("ResizedImage.png")
     
     # Old Resize Method, did not work as intended so I opted for the PIL libray instead.
@@ -63,15 +70,14 @@ def predict():
     # http://effbot.org/imagingbook/introduction.htm
     # img point is used to try and preserve the edges and lines for more accurate predictions
     
+    # Define the Threshold (0 - 255)
     threshold = 0
     # img = img.point(lambda p: p > threshold and 255)
     pt = lambda p: p > threshold and 255
+    # Convert the Image to Black & White and Create points to preserve lines
     img = img.convert('L').point(pt)
     # Save the image in bytes.
     img.save("image.png")
-    # Use openCV to read in the image.
-    rescaledImage = cv2.imread("image.png")
-    # Grayscale the image.
 
     # Flatten (make one dimensional) and reshape the array without changing it's data.
     # Convert the data to float or int so we can divide it by 255
@@ -80,21 +86,26 @@ def predict():
     # 0 represents a pixel that has not been drawn on.
     # https://www.geeksforgeeks.org/differences-flatten-ravel-numpy/
     # grayArray = np.ndarray.ravel(np.array(gray)).reshape(1, 784).astype("float32") / 255
-    grayArray = np.ndarray.ravel(np.array(img)).reshape(1, 784).astype("uint8") / 255
+    flatArray = np.ndarray.ravel(np.array(img)).reshape(1, 784).astype("uint8") / 255
     #grayArray = ~np.ravel(gray).reshape(1, 784).astype(np.uint8) / 255.0
 
     # print("Printing image to array")
-    # print(grayArray)
-    # Predict what the image is with the model we made.
+    # print(flatArray)
+    # Predict the image.
+
+    # https://www.tensorflow.org/api_docs/python/tf/keras/backend/clear_session
+    # To clear the current session
     K.clear_session()
+    # Retrieve the Trained MOdel
     model = getModel()
-    predict = model.predict(grayArray)
+    # Predict with the given model
+    predict = model.predict(flatArray)
+    # Retrieve the prediction as a string
     prediction = str(np.argmax(predict))
-    # print(prediction)
 
     return prediction
 
-# after predicting i clear the session to allow for prediction again.
+# Clear the session to allow for prediction again.
 K.clear_session()
 
 # https://stackoverflow.com/questions/58015489/flask-and-keras-model-error-thread-local-object-has-no-attribute-value

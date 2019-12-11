@@ -43,9 +43,12 @@
         mouse.y = e.pageY - this.offsetTop;
       }, false);
       
+      // Define brush size
       ctx.lineWidth = 3;
+      // Define brush type
       ctx.lineJoin = 'round';
       ctx.lineCap = 'round';
+      // Define brush colour
       ctx.strokeStyle = '#ff0000';
       
       canvas.addEventListener('mousedown', function(e) {
@@ -55,26 +58,30 @@
           canvas.addEventListener('mousemove', onPaint, false);
       }, false);
       
+      // Check for mouse up
       canvas.addEventListener('mouseup', function() {
           canvas.removeEventListener('mousemove', onPaint, false);
       }, false);
       
+      // Handle drawing
       var onPaint = function() {
           ctx.lineTo(mouse.x, mouse.y);
           ctx.stroke();
       };
       function Predict() {
         var datastring = document.getElementById('myCanvas').toDataURL("image/png");
+        // https://flouthoc.github.io/minAjax.js/
         $.ajax({   
-            url: '/predict',
-            method: 'POST',
-            data: {
+            url: '/predict', // to call the method Predict
+            method: 'POST', // Type of Request
+            data: { // Data as a ImageBase64 which will be decoded
             imageBase64: datastring
             },
+            // Print the result if an error occurs print Error.
             success: function(res){           
               document.getElementById("prediction").innerHTML = res;
             },error: function(err){   
-              document.getElementById("prediction").innerHTML = "Encountered an error.";
+              document.getElementById("prediction").innerHTML = "Error.";
             }
         });
       }

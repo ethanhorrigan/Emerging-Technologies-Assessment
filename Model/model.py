@@ -47,21 +47,25 @@ Y_test = np_utils.to_categorical(Y_test, n_classes)
 print("Shape after one-hot encoding: ", Y_train.shape)
 
 # Declare the Model
+# Using Keras Sequential Model
+
+# Layer 1
 model = Sequential()
 model.add(Dense(512, input_shape=(784,)))
 model.add(Activation('relu'))
 model.add(Dropout(0.2))
 model.add(BatchNormalization())
-
+# Layer 2
 model.add(Dense(512))
 model.add(Activation('relu'))
 model.add(Dropout(0.2))
-
+# Layer 3
 model.add(BatchNormalization())
 model.add(Dense(10))
 model.add(Activation('softmax'))
 
-# compiling the sequential model
+# compiling the sequential model using the optimzer adam
+# Refer to the wiki for explaination to why I used optimzer adam.
 model.compile(loss='categorical_crossentropy',metrics=['accuracy'], optimizer='adam')
 
 # Try/Except from https://www.w3schools.com/python/python_try_except.asp
