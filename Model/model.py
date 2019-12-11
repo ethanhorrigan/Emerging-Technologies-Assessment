@@ -73,24 +73,3 @@ except:
     # training the model and saving metrics in history
     history = model.fit(X_train, Y_train,batch_size=128, epochs=10,verbose=2,validation_data=(X_test, Y_test))
     model.save("model.h5")
-
-    # fig = plt.figure()
-    # plt.subplot(2,1,1)
-    # plt.plot(history.history['acc'])
-    # plt.plot(history.history['val_acc'])
-    # plt.title('model accuracy')
-    # plt.ylabel('accuracy')
-    # plt.xlabel('epoch')
-    # plt.legend(['train', 'test'], loc='lower right')
-
-    # plt.subplot(2,1,2)
-    # plt.plot(history.history['loss'])
-    # plt.plot(history.history['val_loss'])
-    # plt.title('model loss')
-    # plt.ylabel('loss')
-    # plt.xlabel('epoch')
-    # plt.legend(['train', 'test'], loc='upper right')
-
-    # plt.tight_layout()
-
-    # fig

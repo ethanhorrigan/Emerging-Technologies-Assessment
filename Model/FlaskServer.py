@@ -41,15 +41,21 @@ def predict():
     with open("image.png", "wb") as f:
         f.write(decode)
 
+    originalWidth = 560
+    originalHeight = 560
+
     width = 28
     height = 28
+    dim = (width, height)
 
 
     img = Image.open("image.png")
     # Downsize the Image to 28 x 28
     # https://stackoverflow.com/questions/273946/how-do-i-resize-an-image-using-pil-and-maintain-its-aspect-ratio
-    img = img.resize((width, height), Image.ANTIALIAS)
-
+    # img = img.resize((width, height), Image.ANTIALIAS)
+    # Resize using cv2
+    img = cv2.resize(img, dim, interpolation = cv2.INTER_AREA)
+    
     # https://www.tutorialkart.com/opencv/python/opencv-python-resize-image/
     # img = cv2.resize(cv2.UMat(img), dsize=(28, 28), interpolation=cv2.INTER_NEAREST)
 

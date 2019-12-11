@@ -10,25 +10,25 @@
     <style>
     </style>
 
-    <canvas id="myCanvas"width="560" height="560" style="border:1px solid #000000;"></canvas>
+    <canvas id="myCanvas"width="560" height="560" style="border:1px solid #8664EF;"></canvas>
 
     <div id="content-wrapper">
       <header class="header header--bg">
         <div class="container">
     
           <div class="header__content text-center">
-    
-            <a class="header__button" href="#">Predict</a>
-            <h1 class="header__content__title">PREDICTION</h1>
+            <button class="header__button" onclick="Predict()">Predict</button>
+            <button class="header__button" onclick="ClearCanvas()">Clear</button>
+            <h1 class="header__content__title" id="prediction"></h1>
           </div>
         </div>
       </header>
     </div>
-    
+
     <br>
-    <button class="button" id="Predict" onclick="Predict()">Predict</button>
-    <button class="button" id="Clear" onclick="ClearCanvas()">Clear</button>
-    <h3 id="prediction"></h3>
+    <!-- <button class="button" id="Predict" onclick="Predict()">Predict</button>
+    <button class="button" id="Clear" onclick="ClearCanvas()">Clear</button> -->
+    <!-- <h3 id="prediction"></h3> -->
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
