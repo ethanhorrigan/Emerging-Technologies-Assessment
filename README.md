@@ -1,6 +1,10 @@
 # Emerging-Technologies-Assessment
 Train a model that recognises hand-written digits using the MNIST dataset also allows the user to draw a digit using their mouse or touchscreen device which can then be predicted
 
+# Wiki
+Research & Project explaination can be found on the Wiki.
+* **Wiki** - [Wiki](https://github.com/ethanhorrigan/Emerging-Technologies-Assessment/wiki)
+
 ### Installing
 
 A step by step example on how to run
