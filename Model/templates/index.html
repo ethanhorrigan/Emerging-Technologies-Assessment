@@ -10,6 +10,7 @@
     <style>
     </style>
 
+    <!-- 28 / 20 = 28, this means our canvas is 20x the image -->
     <canvas id="myCanvas"width="560" height="560" style="border:1px solid #8664EF;"></canvas>
 
     <div id="content-wrapper">
@@ -42,9 +43,9 @@
         mouse.y = e.pageY - this.offsetTop;
       }, false);
       
-      ctx.lineWidth = 20;
-      ctx.lineJoin = 'miter';
-      ctx.lineCap = 'miter';
+      ctx.lineWidth = 3;
+      ctx.lineJoin = 'round';
+      ctx.lineCap = 'round';
       ctx.strokeStyle = '#ff0000';
       
       canvas.addEventListener('mousedown', function(e) {
