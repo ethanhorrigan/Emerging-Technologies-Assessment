@@ -71,5 +71,5 @@ except:
     print("Loading model failed")
     print("Building new Network..")
     # training the model and saving metrics in history
-    history = model.fit(X_train, Y_train,batch_size=128, epochs=10,verbose=2,validation_data=(X_test, Y_test))
+    history = model.fit(X_train, Y_train,batch_size=128, epochs=20,verbose=2,validation_data=(X_test, Y_test))
     model.save("model.h5")
