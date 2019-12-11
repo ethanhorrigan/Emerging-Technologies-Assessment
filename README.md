@@ -52,15 +52,19 @@ RunServer.bat
 ```
 
 
-## Built With
+## Languages & Librarys
 
 * [Jupyter](https://jupyter.org/) - Jupyter Notebook
 * [Python](https://www.python.org/) - Python 
+* [Keras](https://keras.io/) - Keras 
+* [Flask](https://www.palletsprojects.com/p/flask/) - Flask 
+* [Numpy](https://numpy.org/) - Numpy 
+* [Matplotlib](https://matplotlib.org/) - Matplotlib 
+* [Base64](https://www.base64encoder.io/python/) - Base64
+* [Pillow](https://pillow.readthedocs.io/en/stable/) - Pillow
+* [OpenCV](https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_gui/py_image_display/py_image_display.html) - OpenCV
+* [BytesIO](https://docs.python.org/3/library/io.html) - BytesIO
 
 ## Authors
 
 * **Ethan Horrigan** - [Github](https://github.com/ethanhorrigan)
-
-## Acknowledgments
-
-* **Ian McLoughlin** - [Github](https://github.com/ianmcloughlin)
