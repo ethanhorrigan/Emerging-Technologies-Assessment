@@ -63,19 +63,17 @@
           ctx.lineTo(mouse.x, mouse.y);
           ctx.stroke();
       };
-      // Sends the image to the flask server.
       function Predict() {
         var datastring = document.getElementById('myCanvas').toDataURL("image/png");
-        // Let's create and AJAX call to our FlaskServer script.
-        $.ajax({    // Let's send the base 64 image as a JSON file.
-            url: '/predict', // Call the predict method.
-            method: 'POST', // This is a post request.
+        $.ajax({   
+            url: '/predict',
+            method: 'POST',
             data: {
             imageBase64: datastring
-            }, // The data we are sending.
-            success: function(res){ // If we have a successful request.              
+            },
+            success: function(res){           
               document.getElementById("prediction").innerHTML = res;
-            },error: function(err){ // If we get an error.    
+            },error: function(err){   
               document.getElementById("prediction").innerHTML = "Encountered an error.";
             }
         });

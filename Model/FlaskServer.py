@@ -14,8 +14,6 @@ import cv2
 from PIL import Image
 from io import BytesIO
 
-# imports for array-handling and plotting
-
 # https://www.palletsprojects.com/p/flask/
 # Creating an instance of Flask 
 # This is needed so that Flask knows where to look for templates, static files, and so on.
